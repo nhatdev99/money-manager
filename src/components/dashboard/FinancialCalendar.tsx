@@ -179,7 +179,7 @@ export function FinancialCalendar({
                   hover:bg-gray-50 hover:shadow-sm
                   cursor-pointer
                   ${isCurrentDay ? 'ring-2 ring-blue-500' : ''}
-                  ${hasTransactions ? 'bg-gradient-to-br' : ''}
+                  ${hasTransactions ? 'bg-linear-to-r' : ''}
                   ${
                     hasTransactions && stats.balance > 0
                       ? 'from-green-50 to-green-100/50'
@@ -240,11 +240,11 @@ export function FinancialCalendar({
         {/* Legend */}
         <div className="mt-4 pt-4 border-t flex items-center justify-center gap-4 text-xs">
           <div className="flex items-center gap-1.5">
-            <div className="h-3 w-3 rounded bg-gradient-to-br from-green-50 to-green-100 border border-green-200" />
+            <div className="h-3 w-3 rounded bg-linear-to-r from-green-50 to-green-100 border border-green-200" />
             <span className="text-gray-600">Thu &gt; Chi</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <div className="h-3 w-3 rounded bg-gradient-to-br from-red-50 to-red-100 border border-red-200" />
+            <div className="h-3 w-3 rounded bg-linear-to-r from-red-50 to-red-100 border border-red-200" />
             <span className="text-gray-600">Chi &gt; Thu</span>
           </div>
           <div className="flex items-center gap-1.5">

@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import { useAuth } from '@/contexts/AuthContext'
-import { DashboardLayout } from '@/components/layout/DashboardLayout'
+import { AppLayout } from '@/components/layout/AppLayout'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { 
   Transaction, 
@@ -25,10 +25,11 @@ import {
   Wallet,
   PiggyBank,
 } from 'lucide-react'
-import { format } from 'date-fns'
+import { format, isSameDay } from 'date-fns'
 import { vi } from 'date-fns/locale'
 import { FinancialCalendar } from '@/components/dashboard/FinancialCalendar'
 import { QuickActions } from '@/components/dashboard/QuickActions'
+import { DailyStats } from '@/components/dashboard/DailyStats'
 
 export default function DashboardPage() {
   const { user } = useAuth()
@@ -54,6 +55,8 @@ export default function DashboardPage() {
   >([])
   const [allTransactions, setAllTransactions] = useState<Transaction[]>([])
   const [loading, setLoading] = useState(true)
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  const [dailyTransactions, setDailyTransactions] = useState<Transaction[]>([])
 
   useEffect(() => {
     if (!user) return
@@ -144,28 +147,31 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <DashboardLayout>
+      <AppLayout>
         <div className="flex items-center justify-center h-screen">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
             <p className="text-gray-600">Đang tải dữ liệu...</p>
           </div>
         </div>
-      </DashboardLayout>
+      </AppLayout>
     )
   }
 
   const handleDateClick = (date: Date) => {
-    console.log('Selected date:', date)
-    // TODO: Show transactions for selected date
+    setSelectedDate(date)
+    const filtered = allTransactions.filter(t => 
+      isSameDay(new Date(t.date), date)
+    )
+    setDailyTransactions(filtered)
   }
 
   return (
-    <DashboardLayout>
+    <AppLayout>
       <div className="p-4 sm:p-6 lg:p-8 space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+          <h1 className="text-2xl sm:text-3xl font-bold bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
             Tổng quan tài chính
           </h1>
           <p className="text-sm text-gray-600 mt-1">
@@ -248,6 +254,13 @@ export default function DashboardPage() {
             onDateClick={handleDateClick}
           />
         </div>
+
+        {selectedDate && (
+          <DailyStats 
+            transactions={dailyTransactions} 
+            selectedDate={selectedDate} 
+          />
+        )}
 
         {/* Charts and Recent Transactions */}
         <div className="grid gap-6 lg:grid-cols-2">
@@ -341,6 +354,6 @@ export default function DashboardPage() {
           </Card>
         </div>
       </div>
-    </DashboardLayout>
+    </AppLayout>
   )
 }

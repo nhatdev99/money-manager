@@ -83,9 +83,9 @@ export function QuickActions() {
 
   return (
     <Card className="rounded-xl overflow-hidden">
-      <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b">
+      <CardHeader className="border-b">
         <CardTitle className="text-lg font-semibold flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+          <div className="h-8 w-8 rounded-lg bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
             <Plus className="h-4 w-4 text-white" />
           </div>
           Thao tác nhanh
@@ -110,7 +110,7 @@ export function QuickActions() {
                   hover:shadow-lg hover:scale-105
                   cursor-pointer
                   ${isHovered ? 'shadow-md' : 'shadow-sm'}
-                  bg-gradient-to-br ${action.bgGradient}
+                  bg-linear-to-br ${action.bgGradient}
                   border border-gray-100
                 `}
               >
@@ -118,7 +118,7 @@ export function QuickActions() {
                 <div
                   className={`
                     absolute inset-0 opacity-0 group-hover:opacity-10
-                    bg-gradient-to-br ${action.gradient}
+                    bg-linear-to-br ${action.gradient}
                     transition-opacity duration-300
                   `}
                 />
@@ -130,7 +130,7 @@ export function QuickActions() {
                     className={`
                       h-12 w-12 rounded-xl
                       flex items-center justify-center
-                      bg-gradient-to-br ${action.gradient}
+                      bg-linear-to-br ${action.gradient}
                       transform transition-transform duration-300
                       ${isHovered ? 'scale-110 rotate-3' : ''}
                       shadow-sm
@@ -149,7 +149,7 @@ export function QuickActions() {
                     className={`
                       absolute -bottom-1 left-1/2 -translate-x-1/2
                       h-1 rounded-full
-                      bg-gradient-to-r ${action.gradient}
+                      bg-linear-to-r ${action.gradient}
                       transition-all duration-300
                       ${isHovered ? 'w-8' : 'w-0'}
                     `}
