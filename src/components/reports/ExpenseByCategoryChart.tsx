@@ -45,7 +45,7 @@ export function ExpenseByCategoryChart({ data }: ExpenseByCategoryChartProps) {
             fill="#8884d8"
             dataKey="value"
             nameKey="name"
-            label={({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
+            label={({ cx, cy, midAngle, innerRadius, outerRadius, percent }: { cx: number; cy: number; midAngle: number; innerRadius: number; outerRadius: number; percent: number; }) => {
               const radius = innerRadius + (outerRadius - innerRadius) * 0.5
               const x = cx + radius * Math.cos(-midAngle * (Math.PI / 180))
               const y = cy + radius * Math.sin(-midAngle * (Math.PI / 180))
